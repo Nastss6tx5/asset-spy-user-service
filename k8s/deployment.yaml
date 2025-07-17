@@ -23,9 +23,3 @@ spec:
                 name: user-service-config
             - secretRef:
                 name: user-service-secret
-          readinessProbe:
-            httpGet:
-              port: 8082
-              path: /actuator/health
-            initialDelaySeconds: 10
-            periodSeconds: 10
