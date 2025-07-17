@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/asset_spy_user_service_db
-    username: postgres
-    password: 123
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/asset_spy_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:123}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -13,7 +13,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        default_schema: asset_spy_user_service_db
+        default_schema: ${SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA:asset_spy_user_service_db}
         format_sql: true
   liquibase:
     enabled: true

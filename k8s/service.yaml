@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: asset-spy-user-service
+  namespace: asset-spy
+spec:
+  selector:
+    app: asset-spy-user-service
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+  type: ClusterIP
