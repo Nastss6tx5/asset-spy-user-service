@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: asset-spy-user-service
+  name: user-service
   namespace: asset-spy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: asset-spy-user-service
+      app: user-service
   template:
     metadata:
       labels:
-        app: asset-spy-user-service
+        app: user-service
     spec:
       containers:
         - name: user-service
@@ -20,9 +20,9 @@ spec:
             - containerPort: 8082
           envFrom:
             - configMapRef:
-                name: asset-spy-user-service-config
+                name: user-service-config
             - secretRef:
-                name: asset-spy-user-service-secret
+                name: user-service-secret
           readinessProbe:
             httpGet:
               port: 8082
