@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: asset-spy-user-service-config
+  namespace: asset-spy
+data:
+  SERVER_PORT: "8082"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://asset-spy-postgres:5432/asset_spy_db"
+  SPRING_DATASOURCE_USERNAME: "postgres"
+  SPRING_DATASOURCE_DEFAULT_SCHEMA: "asset_spy_user_service_db"
+  SPRING_REDIS_HOST: "asset-spy-redis"
+  SPRING_REDIS_PORT: "6379"
