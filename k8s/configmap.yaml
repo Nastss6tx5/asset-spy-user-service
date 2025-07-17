@@ -8,5 +8,6 @@ data:
   SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/asset_spy_db"
   SPRING_DATASOURCE_USERNAME: "postgres"
   SPRING_DATASOURCE_DEFAULT_SCHEMA: "asset_spy_user_service_db"
-  SPRING_REDIS_HOST: "redis"
-  SPRING_REDIS_PORT: "6379"
+
+  SPRING_DATA_REDIS_HOST: "redis"
+  SPRING_DATA_REDIS_PORT: "6379"
