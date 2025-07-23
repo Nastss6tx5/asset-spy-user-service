@@ -4,6 +4,7 @@ import asset.spy.user.service.dto.contact.ContactCreateDto;
 import asset.spy.user.service.dto.contact.ContactResponseDto;
 import asset.spy.user.service.dto.contact.ContactUpdateDto;
 import asset.spy.user.service.service.ContactService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ import java.util.UUID;
 @Slf4j
 @RequestMapping("/v1/contacts")
 @CrossOrigin(origins = "http://77.110.126.88:30081", methods = {RequestMethod.GET, RequestMethod.POST})
-@Tag(name = "Contacts API")
+@Tag(name = "Contacts", description = "Operation with contacts")
 public class ContactController {
 
     private static final String HAS_ACCESS_TO_CONTACT = "@privilegeService.hasAccessToContact(#externalId)";
@@ -40,6 +41,7 @@ public class ContactController {
 
     private final ContactService contactService;
 
+    @Operation(summary = "Save contact by user ID")
     @PostMapping("/save/{userExternalId}")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(HAS_ACCESS_TO_USER)
@@ -48,12 +50,14 @@ public class ContactController {
         return contactService.createContact(contactCreateDto, userExternalId);
     }
 
+    @Operation(summary = "Get contact by ID")
     @GetMapping("/{externalId}")
     @PreAuthorize(HAS_ACCESS_TO_CONTACT)
     public ContactResponseDto getContactById(@PathVariable UUID externalId) {
         return contactService.getContactByExternalId(externalId);
     }
 
+    @Operation(summary = "Update contact by ID")
     @PutMapping("/{externalId}")
     @PreAuthorize(HAS_ACCESS_TO_CONTACT)
     public ContactResponseDto updateContact(@PathVariable UUID externalId,
@@ -61,6 +65,7 @@ public class ContactController {
         return contactService.updateContact(externalId, contactUpdateDto);
     }
 
+    @Operation(summary = "Delete contact by ID")
     @DeleteMapping("/{externalId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize(HAS_ACCESS_TO_CONTACT)
@@ -68,6 +73,7 @@ public class ContactController {
         contactService.deleteContact(externalId);
     }
 
+    @Operation(summary = "Get all contacts")
     @GetMapping
     public Page<ContactResponseDto> getAllContacts(Pageable pageable,
                                                    @RequestParam(required = false) String contactType,

@@ -4,6 +4,7 @@ import asset.spy.user.service.dto.user.UserResponseDto;
 import asset.spy.user.service.dto.user.UserUpdateDto;
 import asset.spy.user.service.service.UserService;
 import asset.spy.user.service.util.RequestUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -32,27 +33,31 @@ import java.util.UUID;
 @RequestMapping("/v1/users")
 @Slf4j
 @CrossOrigin(origins = "http://77.110.126.88:30081", methods = {RequestMethod.GET, RequestMethod.POST})
-@Tag(name = "Users API")
+@Tag(name = "Users", description = "Operation with users")
 public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "Get user by ID")
     @GetMapping("/{externalId}")
     public UserResponseDto getUserById(@PathVariable UUID externalId) {
         return userService.getUserById(externalId);
     }
 
+    @Operation(summary = "Update user by ID")
     @PutMapping("/{externalId}")
     public UserResponseDto updateUser(@PathVariable UUID externalId, @Valid @RequestBody UserUpdateDto userUpdateDto) {
         return userService.updateUser(externalId, userUpdateDto);
     }
 
+    @Operation(summary = "Delete user by ID")
     @DeleteMapping("/{externalId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable UUID externalId) {
         userService.deleteUser(externalId);
     }
 
+    @Operation(summary = "Get all users")
     @GetMapping
     public Page<UserResponseDto> getAllUsers(Pageable pageable,
                                              @RequestParam(required = false) String username,
@@ -62,6 +67,7 @@ public class UserController {
         return userService.getAllUsers(pageable, username, description, dateFrom, dateTo);
     }
 
+    @Operation(summary = "Get user profile")
     @GetMapping("/profile")
     public UserResponseDto getUserProfile(HttpServletRequest request) {
         return userService.getUserById(RequestUtil.extractExternalId(request));
