@@ -1,5 +1,7 @@
 server:
   port: 8082
+  servlet:
+    context-path: /user-service
 
 spring:
   datasource:
@@ -41,3 +43,9 @@ cache:
 security:
   jwt:
     secret: ${JWT_SECRET_KEY:38ddfeac16e316426825dd93e41cb1cb2b248002d4843251ec7bbefebf6bed9194a8fb5ef3a6bcb1189ad1c7b828ee27cb219}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
+  api-docs:
+    path: /v3/api-docs
